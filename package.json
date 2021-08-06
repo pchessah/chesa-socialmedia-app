@@ -1,5 +1,5 @@
 {
-  "name": "nextjs",
+  "name": "chesa_socialmedia_app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap": "^5.1.0",
+    "jquery": "^3.6.0",
     "next": "10.x",
+    "popper.js": "^1.16.1",
     "react": "17.x",
-    "react-dom": "17.x"
+    "react-dom": "17.x",
+    "reactstrap": "^8.9.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
   }
 }
