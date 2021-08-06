@@ -1,8 +1,6 @@
-//import '../styles/globals.css'
+import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import Navigationbar from '../components/navbar/navbar';
+import Navigationbar from '../components/navbar';
 
 function MyApp({ Component, pageProps }) {
   return(
