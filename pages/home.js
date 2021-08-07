@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from "next/link"
+import { MdAssignmentInd } from 'react-icons/md';
 
 
 function HomePage() {
@@ -20,9 +21,12 @@ function HomePage() {
 
                 <div className={styles.signUpForm}>
                     <form>
-                        <div className="row">
-                        <h4>Sign Up</h4>
+                    <div className="row">
+                        <div className="d-flex flex-column justify-content-center align-items-center col">
+                            <MdAssignmentInd />
+                            <h4>Sign Up</h4>
                         </div>
+                    </div>
                         <div className={`${styles["inputRow"]} row`}>
                             <div className="col-6">
                                 <input className={styles.signUpFormInput} type="text" placeholder="Enter First Name" />

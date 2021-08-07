@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../styles/Home.module.css'
 import Link from "next/link"
+import { GoSignIn } from 'react-icons/go';
 
 function Login() {
     return (
@@ -8,7 +9,10 @@ function Login() {
             <div className={styles.signUpForm}>
                 <form>
                     <div className="row">
-                        <h4>Log In</h4>
+                        <div className="d-flex flex-column justify-content-center align-items-center col">
+                            <GoSignIn />
+                            <h4>Log In</h4>
+                        </div>
                     </div>
 
                     <div className={`${styles["inputRow"]} row`}>
