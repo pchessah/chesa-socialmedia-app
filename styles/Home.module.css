@@ -1,18 +1,64 @@
 .homeContainer{
   padding: 3%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse !important;
   justify-content: center;
-  width: 100vw;
- 
+  min-width: 50%;
 }
 
 .gif{
   flex: 1;
+  width: 100%;
 
 }
 
 .signUpForm{
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.signUpForm form{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;  
+}
+
+.signUpFormInput{
+  width: 100%;
+  background-color: aliceblue;
+  border-radius: 5px;
+  border: none;
+  margin: 5px 0px;
+  padding: 8px 12px;
+  flex: 1;
+}
+
+.inputRow{
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.signUpFormBtn{
+  color: white;
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.bottomLinks{
+  display: flex;
+  justify-self: flex-end;
+}
+
+.bottomLinks a{
+  color: black;
+  font-size: smaller;
+  
+}
+
