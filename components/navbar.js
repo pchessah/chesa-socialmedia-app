@@ -13,6 +13,7 @@ import {
     DropdownMenu,
     DropdownItem,
 } from 'reactstrap';
+import LogOut from './logOut';
 
 
 function Navigationbar() {
@@ -41,6 +42,10 @@ function Navigationbar() {
                         <NavItem className="m-2 ">
                             <Link href="/profile"><a className={styles.navLink}>Profile</a></Link>
                         </NavItem>
+                        <NavItem className="m-2 ">
+                            <LogOut/>
+                        </NavItem>
+                        
                         {/* <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 Options
