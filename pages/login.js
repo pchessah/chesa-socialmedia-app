@@ -10,13 +10,14 @@ function Login() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
     const router = useRouter()
-    const {signInWithEmailAndPassword} = userAuth()
+    const { signInWithEmailAndPassword, authUser } = userAuth()
 
     const onLogIn = (event) => {
         event.preventDefault()
         setError(null)
         signInWithEmailAndPassword(email, password).then((authUser) => {
             router.push("/profile")
+            console.log(authUser);
         }).catch((error) => {
             setError(error.message)
         })

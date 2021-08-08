@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { userAuth } from '../pages/libs/context/userAuthContext';
 import { useRouter } from 'next/router';
+import { Alert } from "reactstrap"
 
 
 function LogOut() {
-    const { signOut } = userAuth()
+    const { signOut, authUser } = userAuth()
+    const[alert, setAlert] = useState(false)
 
     const router = useRouter()
 
     const logOut = () => {
-        return signOut().then((result) => {
-            window.alert("Signed Out")
-            router.push("/")
-            
-        }).catch((err) => {
-            window.alert(err)
-            
-        });
+        if(confirm("Are you sure you want to sign out?")){
+            return signOut().then((result) => {
+                window.alert("Signed Out")
+                router.push("/")
+                
+            }).catch((err) => {
+                window.alert(err)                
+            });
+
+        }
+       
     }
     return (
         <>

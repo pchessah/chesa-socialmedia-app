@@ -1,26 +1,32 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from "next/router"
 import { userAuth } from "./libs/context/userAuthContext"
+import NotLoggedIn from '../components/notLoggedIn'
 
-const LoggedIn = () => {
+
+
+
+function Profile() {
     const { authUser, loading } = userAuth()
     const router = useRouter()
 
-    useEffect(()=>{
-        if(!loading && !authUser){
+
+    useEffect(() => {
+        if (!loading && !authUser) {
+            console.log(authUser);
             window.alert("You are not logged in!")
             router.push("/")
         }
-       
-    }, [authUser, loading])
-}
 
-function Profile() {
+    }, [])
+
     return (
         <>
-        Profile
+            {authUser ? <div>Profile</div> : <NotLoggedIn />}
         </>
     )
+
 }
+
 
 export default Profile

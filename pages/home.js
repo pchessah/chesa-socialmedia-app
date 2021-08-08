@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
-import Link from "next/link"
-import { MdAssignmentInd } from 'react-icons/md';
 import Signup from './signup';
 
 
