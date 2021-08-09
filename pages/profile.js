@@ -10,25 +10,30 @@ import { RiFolderUploadLine } from "react-icons/ri";
 
 function Profile() {
 
-    const { authUser, loading } = userAuth()
+    const { authUser, loading, } = userAuth()
     const [profilePic, setProfilePic] = useState("/images/avatar.jpg")
     const [editorMode, setEditorMode] = useState(false)
     const [progress, setProgress] = useState(0)
     const [imageUploaded, setImageUploaded] = useState(null)
     const [fileSelected, setFileSelected] = useState("")
     const [loadingAction, setLoadingAction] = useState(true)
+    const [loggedIn, setLoggedIn] = useState(true)
 
 
     const router = useRouter()
 
     useEffect(() => {
-        if (!loading && !authUser) {
-            window.alert("You are not logged in!")
-            router.push("/")
-        } else {
+        Firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
                 setLoadingAction(false)
-                authUser.photoURL ? setProfilePic(authUser.photoURL) : setProfilePic("/images/avatar.jpg")
-        }
+                setLoggedIn(true)
+                user.photoURL ? setProfilePic(user.photoURL) : setProfilePic("/images/avatar.jpg")
+            } else {
+                setLoggedIn(false)
+                window.alert("You are not logged in!")
+                router.push("/")
+            }
+          });
     }, [])
 
     const openChangeProfilePicForm = (event) => {
@@ -57,6 +62,7 @@ function Profile() {
 
             uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
                 var progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes)) * 100
+                console.log(progress);
 
 
             }, (error) => {
@@ -76,21 +82,15 @@ function Profile() {
                     })
                 })
             })
-
-
-
             setEditorMode(false)
         }
     }
 
 
     const CurrentUserProfile = () => {
-        useEffect(() => {
-            setProgress(progress)
-        }, [progress])
+  
         return (
             <>
-
                 <div className="m-2 p-2">
                     <div className="card" className="d-flex flex-column justify-content-center align-items-center">
                         {loadingAction ? <Loading /> : <>
@@ -133,7 +133,7 @@ function Profile() {
 
     return (
         <>
-            {authUser ? <CurrentUserProfile /> : loading ? <Loading /> : <NotLoggedIn />}
+            {authUser ? <CurrentUserProfile /> : loggedIn ? <Loading /> : <NotLoggedIn />}
         </>
     )
 

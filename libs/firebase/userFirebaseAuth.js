@@ -6,7 +6,20 @@ require('firebase/storage')
 function userFirebaseAuth() {
 
     const [authUser, setAuthUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    const loggedInChecker = () => {
+        Firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                setLoggedIn(true)
+              // User is signed in.
+            } else {
+                setLoggedIn(false)
+              // No user is signed in.
+            }
+            });
+    }
 
    
     const authStateChanged = async (authState) => {
@@ -21,12 +34,15 @@ function userFirebaseAuth() {
         setLoading(true)
         setAuthUser(user)
         setLoading(false)
+        loggedInChecker()
     }
 
     useEffect(() => {
         const unsubscribe =  Firebase.auth().onAuthStateChanged(authStateChanged)
         return () => unsubscribe();
     }, [])
+
+  
 
     const clear = () =>{
         setAuthUser(null)
@@ -56,6 +72,7 @@ function userFirebaseAuth() {
         createUserWithEmailAndPassword,
         signOut,
         resetPassword,
+        loggedIn
     
     };
 
