@@ -1,5 +1,5 @@
 import React from 'react'
-import { userAuth } from '../pages/libs/context/userAuthContext';
+import { userAuth } from '../libs/context/userAuthContext';
 import { useRouter } from 'next/router';
 
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Firebase from './firebase'
+require('firebase/auth')
 
 
 function userFirebaseAuth() {
@@ -23,7 +24,7 @@ function userFirebaseAuth() {
     }
 
     useEffect(() => {
-        const unsubscribe = Firebase.auth().onAuthStateChanged(authStateChanged)
+        const unsubscribe =  Firebase.auth().onAuthStateChanged(authStateChanged)
         return () => unsubscribe();
     }, [])
 

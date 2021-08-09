@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import { GoSignIn } from 'react-icons/go';
 import { useRouter } from "next/router"
-import { userAuth } from "./libs/context/userAuthContext"
+import { userAuth } from "../libs/context/userAuthContext"
 
 function Login() {
     const [email, setEmail] = useState("")

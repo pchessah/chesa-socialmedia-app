@@ -3,9 +3,9 @@ import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import { MdAssignmentInd } from 'react-icons/md';
 import { useRouter } from "next/router"
-import { userAuth } from './libs/context/userAuthContext';
+import { userAuth } from '../libs/context/userAuthContext';
 import { Alert } from "reactstrap"
-import Firebase from './libs/firebase/firebase';
+import Firebase from '../libs/firebase/firebase';
 
 
 function Signup() {

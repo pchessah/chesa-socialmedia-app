@@ -14,7 +14,7 @@ import {
     DropdownItem,
 } from 'reactstrap';
 import LogOut from './logOut';
-import { userAuth } from "../pages/libs/context/userAuthContext"
+import { userAuth } from "../libs/context/userAuthContext"
 import { useRouter } from "next/router"
 
 
@@ -46,7 +46,7 @@ function Navigationbar() {
                             </NavItem> </> : null}
 
                         {authUser ? <NavItem className="m-2 ">
-                            <Link href="/profile"><a className={styles.navLink}>Profile</a></Link>
+                            <Link href="/profile"><a className={styles.navLink}> {`${authUser.displayName}`}'s  Profile</a></Link>
                         </NavItem> : null}
 
                         {authUser ? <NavItem className="m-2 ">

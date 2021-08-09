@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
-import { userAuth } from "./libs/context/userAuthContext"
+import { userAuth } from "../libs/context/userAuthContext"
 import NotLoggedIn from '../components/notLoggedIn'
 import styles from "../styles/Profile.module.css"
 import Image from "next/image"
-import Firebase from './libs/firebase/firebase'
+import Firebase from '../libs/firebase/firebase'
 
 
 
