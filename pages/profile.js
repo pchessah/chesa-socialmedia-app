@@ -10,10 +10,9 @@ import { RiFolderUploadLine } from "react-icons/ri";
 
 function Profile() {
 
-    const { authUser, loading, } = userAuth()
+    const { authUser,} = userAuth()
     const [profilePic, setProfilePic] = useState("/images/avatar.jpg")
     const [editorMode, setEditorMode] = useState(false)
-    const [progress, setProgress] = useState(0)
     const [imageUploaded, setImageUploaded] = useState(null)
     const [fileSelected, setFileSelected] = useState("")
     const [loadingAction, setLoadingAction] = useState(true)
@@ -63,8 +62,6 @@ function Profile() {
             uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
                 var progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes)) * 100
                 console.log(progress);
-
-
             }, (error) => {
                 window.alert(error)
                 throw error
