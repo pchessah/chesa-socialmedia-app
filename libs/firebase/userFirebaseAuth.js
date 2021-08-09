@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Firebase from './firebase'
 require('firebase/auth')
-
+require('firebase/storage')
 
 function userFirebaseAuth() {
 

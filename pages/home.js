@@ -4,13 +4,15 @@ import Image from 'next/image'
 import Signup from './signup';
 
 
+
+
 function HomePage() {
     return (
         <>
             <div className={styles.homeContainer}>
                 <div className={styles.gif}>
                     <Image
-                        src="/../public/social.gif"
+                        src="/images/social.gif"
                         alt="Home Page"
                         width={500}
                         height={500}
