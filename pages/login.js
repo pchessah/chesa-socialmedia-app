@@ -17,7 +17,6 @@ function Login() {
         setError(null)
         signInWithEmailAndPassword(email, password).then((authUser) => {
             router.push("/profile")
-            console.log(authUser);
         }).catch((error) => {
             setError(error.message)
         })

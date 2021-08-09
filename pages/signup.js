@@ -5,6 +5,7 @@ import { MdAssignmentInd } from 'react-icons/md';
 import { useRouter } from "next/router"
 import { userAuth } from './libs/context/userAuthContext';
 import { Alert } from "reactstrap"
+import Firebase from './libs/firebase/firebase';
 
 
 function Signup() {
@@ -44,9 +45,13 @@ function Signup() {
     const onSignUp = (event) => {
         event.preventDefault()
         setError(null)
-
         if (passwordOne === passwordTwo) {
             createUserWithEmailAndPassword(email, passwordOne).then((authUser) => {
+                let user = Firebase.auth().currentUser
+                user.updateProfile({
+                    displayName: `${firstName} ${secondName}`
+                })
+            }).then(()=>{
                 window.alert("User Created, now log in")
                 router.push("/login")
             }).catch((error) => {
