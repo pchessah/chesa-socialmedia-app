@@ -36,14 +36,8 @@ function Profile() {
 
     const handleProfilePicChange = (event) => {
         if (event.target.files[0]) {
+            console.log(event.target.files[0]);
             setImageUploaded(event.target.files[0])
-        }
-    }
-
-
-    const changeProfilePic = (event) => {
-        event.preventDefault()
-        if (confirm("Change Profile Pic?")) {
             let file = imageUploaded
             var storage = Firebase.storage()
             var storageRef = storage.ref()
@@ -58,12 +52,22 @@ function Profile() {
             }, () => {
                 uploadTask.snapshot.ref.getDownloadURL().then((url) => {
                     setProfilePic(url)
-                   // const user = Firebase.auth().currentUser().displayName
-                    authUser.updateProfile({
-                        photoURL: url
-                    })
+                    
+                   
                 })
             })
+        }
+    }
+
+
+    const changeProfilePic = (event) => {
+        event.preventDefault()
+        if (confirm("Change Profile Pic?")) {
+            // const user = Firebase.auth().currentUser().displayName
+            authUser.updateProfile({
+                photoURL: profilePic
+            })
+        
             window.alert("Profile Pic changed")
             setEditorMode(false)
         }
