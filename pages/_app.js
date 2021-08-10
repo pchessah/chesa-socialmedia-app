@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CS
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS 
 import { UserAuthProvider } from "../libs/context/userAuthContext"
+import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
   return (

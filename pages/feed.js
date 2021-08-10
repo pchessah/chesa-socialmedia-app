@@ -31,6 +31,23 @@ function Feed() {
         })
     }, [])
 
+    useEffect(() => {
+       return ()=>{
+        Firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setLoggedIn(true)
+                setLoading(false)
+                setLoggedInUser(user)
+            } else {
+                window.alert("Not Logged In")
+                setLoggedIn(false)
+                router.push("/")
+            }
+        })
+
+       } 
+    }, [loggedIn])
+
 
     return (
         <>

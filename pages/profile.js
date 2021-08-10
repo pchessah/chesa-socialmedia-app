@@ -10,7 +10,7 @@ import { RiFolderUploadLine } from "react-icons/ri";
 
 function Profile() {
 
-    const { authUser,} = userAuth()
+    const { authUser, } = userAuth()
     const [profilePic, setProfilePic] = useState("/images/avatar.jpg")
     const [editorMode, setEditorMode] = useState(false)
     const [imageUploaded, setImageUploaded] = useState(null)
@@ -29,11 +29,15 @@ function Profile() {
                 user.photoURL ? setProfilePic(user.photoURL) : setProfilePic("/images/avatar.jpg")
             } else {
                 setLoggedIn(false)
-                window.alert("You are not logged in!")
-                router.push("/")
+                setLoadingAction(true)
+                alert("You are not logged in!")
+                router.push("/login")
+                setLoadingAction(false)
             }
-          });
+        });
     }, [])
+
+
 
     const openChangeProfilePicForm = (event) => {
         setEditorMode(true)
@@ -85,7 +89,7 @@ function Profile() {
 
 
     const CurrentUserProfile = () => {
-  
+
         return (
             <>
                 <div className="m-2 p-2">
