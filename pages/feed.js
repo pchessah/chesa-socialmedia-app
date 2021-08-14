@@ -8,6 +8,7 @@ import { userAuth } from '../libs/context/userAuthContext'
 import Firebase from '../libs/firebase/firebase'
 import Image from "next/image"
 import LogOut from '../components/logOut'
+import CreatePost from '../components/createPost'
 
 function Feed() {
 
@@ -53,9 +54,9 @@ function Feed() {
         <>
             {loading ? <Loading /> :
                 <>
-                    <div className="p-2 d-flex flex-row justify-content-between">
+                    <div className="p-2 d-flex flex-row row-wrap justify-content-between">
                         <Link  href="/profile">
-                        <div className="card p-2 m-2">
+                        <div className="p-2 m-2">
                             <Image
                                 src={authUser.photoURL}
                                 alt="Profile-pic"
@@ -69,6 +70,9 @@ function Feed() {
 
                         <div className="card m-2 p-2 d-flex flex-fill flex-wrap row justify-content-center align-items-center">
                             <div className="m-1 col-12">
+                                <CreatePost/>
+                            </div>
+                            <div className="m-1 col-12">
                                 Post
                             </div>
                             <div className="m-1 col-12">
@@ -79,7 +83,7 @@ function Feed() {
                             </div>
                         </div>
 
-                        <div className="card m-2 p-2">
+                        <div className="m-2 p-2">
                             <LogOut/>
                         </div>
                        

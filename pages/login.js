@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import { GoSignIn } from 'react-icons/go';
@@ -16,7 +16,7 @@ function Login() {
         event.preventDefault()
         setError(null)
         signInWithEmailAndPassword(email, password).then((authUser) => {
-            router.push("/profile")
+            router.push("/")
         }).catch((error) => {
             setError(error.message)
         })
