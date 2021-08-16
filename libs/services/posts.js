@@ -1,29 +1,27 @@
-import firebase from "../firebase/firebase"
+import firebase from "../firebase/firebase";
 
-const db = firebase.firestore().collection("/posts")
+const db = firebase.firestore().collection("/posts");
+const dbRef = firebase.firestore().collection("posts");
 
 const addPost = (post) => {
-    debugger;
-    return db.add(post)
+  return db.add(post);
+};
+
+const getAllPosts =() => {
+  return db;
 }
 
-const getAllPosts = () => {
-    return db
-}
+const editPost = (id, value) => db.doc(id).update(value);
 
-const editPost = (id, value) => db.doc(id).update(value)
-
-const deletePost = (id) => db.doc(id).delete()
-
-
+const deletePost = (id) => db.doc(id).delete();
 
 const postService = {
-    db,
-    addPost,
-    getAllPosts,
-    editPost,
-    deletePost,
-}
+  db,
+  dbRef,
+  addPost,
+  getAllPosts,
+  editPost,
+  deletePost,
+};
 
-
-export default postService
+export default postService;
