@@ -4,12 +4,12 @@ import Firebase from '../libs/firebase/firebase'
 import postService from '../libs/services/posts'
 
 function CreatePost() {
-    const [post, setPost] = useState()
+    const [post, setPost] = useState({ user: "", postContent: "", time: "" })
     const [currentUser, setCurrentUser] = useState()
 
     const getCurrentTime = () => {
-     let currentTime = new Date().toLocaleString()
-     return currentTime
+        let currentTime = new Date().toLocaleString()
+        return currentTime
     }
 
     const handleChange = (event) => {
@@ -20,14 +20,14 @@ function CreatePost() {
             time: getCurrentTime(),
         }
 
-        setPost(tempPost) 
-        console.log(post);
+
+        setPost(tempPost)
+
     }
 
-    const sendPost = (post, event) => {
-        event.preventDefault();
-        return postService.addPost(post)
-        
+    const sendPost = (e) => {
+        e.preventDefault();
+        postService.addPost(post)
     }
 
     useEffect(() => {
@@ -38,8 +38,8 @@ function CreatePost() {
     return (
         <>
             <form onSubmit={sendPost} className="d-flex flex-column justify-content-center align-items-center">
-                <textarea onChange={handleChange} className={styles.addClass} placeholder="Add new post"></textarea>
-                <button type="submit" class="btn m-1 btn-sm btn-outline-success">Add post</button>
+                <textarea value={post.postContent} onChange={handleChange} className={styles.addClass} placeholder="Add new post"></textarea>
+                <button type="submit" className="btn m-1 btn-sm btn-outline-success">Add post</button>
             </form>
             <hr></hr>
 

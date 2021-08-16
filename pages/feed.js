@@ -8,7 +8,7 @@ import { userAuth } from '../libs/context/userAuthContext'
 import Firebase from '../libs/firebase/firebase'
 import Image from "next/image"
 import LogOut from '../components/logOut'
-import CreatePost from '../components/createPost'
+import CreatePost from './createPost'
 
 function Feed() {
 

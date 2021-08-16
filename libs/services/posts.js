@@ -3,10 +3,13 @@ import firebase from "../firebase/firebase"
 const db = firebase.firestore().collection("/posts")
 
 const addPost = (post) => {
+    debugger;
     return db.add(post)
 }
 
-const getAllPosts = () => db.get()
+const getAllPosts = () => {
+    return db
+}
 
 const editPost = (id, value) => db.doc(id).update(value)
 
