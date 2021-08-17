@@ -8,6 +8,7 @@ function CreatePost() {
     user: "",
     postContent: "",
     time: "",
+    timeStamp: new Date().getTime()
   };
   const [post, setPost] = useState(defaultPost);
   const [currentUser, setCurrentUser] = useState();
@@ -23,6 +24,9 @@ function CreatePost() {
       user: currentUser.displayName,
       post: postContent,
       time: getCurrentTime(),
+      timeStamp: new Date().getTime(),
+      comments: [],
+      likes: 0
     };
     setPost(tempPost);
   };

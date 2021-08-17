@@ -48,8 +48,12 @@ function Signup() {
         if (passwordOne === passwordTwo) {
             createUserWithEmailAndPassword(email, passwordOne).then((authUser) => {
                 let user = Firebase.auth().currentUser
+                let userName =  `${firstName} ${secondName}`
+
+                userName.charAt(0).toUpperCase() + userName.slice(1)
                 user.updateProfile({
-                    displayName: `${firstName} ${secondName}`
+                  
+                    displayName: userName
                 })
             }).then(()=>{
                 window.alert("User Created, now log in")

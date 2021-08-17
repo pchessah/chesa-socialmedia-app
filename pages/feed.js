@@ -10,6 +10,8 @@ import Image from "next/image";
 import LogOut from "../components/logOut";
 import CreatePost from "./createPost";
 import postService from "../libs/services/posts";
+import styles from "../styles/Feed.module.css";
+import { AiOutlineComment } from "react-icons/ai";
 
 function Feed() {
   const defaultFeedPosts = [];
@@ -19,11 +21,14 @@ function Feed() {
   const [loggedIn, setLoggedIn] = useState();
   const [loading, setLoading] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(authUser);
+  const [profilePic, setProfilePic] = useState("/images/avatar.jpg");
+  const [commentMode, setCommentMode] = useState(false);
+  const [comment, setComment] = useState()
 
   const onFeedChange = (feed) => {
     let tempFeedPosts = [];
-
     feed.docs.forEach((singlePost) => {
+      let id = singlePost.id;
       let data = singlePost.data();
       tempFeedPosts = [
         ...tempFeedPosts,
@@ -31,12 +36,35 @@ function Feed() {
           user: data.user,
           post: data.post,
           time: data.time,
+          comments: data.comments,
+          id: id,
+          likes: data.likes,
         },
       ];
     });
 
-    setFeedPosts((prevFeedPosts) => [...prevFeedPosts, ...tempFeedPosts]);
-    console.log(feedPosts);
+    setFeedPosts(tempFeedPosts);
+  };
+
+  const handleCommentChange = (event) => {
+    const commentContent = event.target.value;
+    const tempComment = {
+      commenter: loggedInUser.displayName,
+      comment: commentContent,
+      time: getCurrentTime(),
+      timeStamp: new Date().getTime()
+    }
+
+    setComment(tempComment)
+  };
+
+
+  const handleCommentMode = () => {
+    setCommentMode(!commentMode);
+  };
+
+  const submitComment = () => {
+    setCommentMode(!commentMode);
   };
 
   useEffect(() => {
@@ -45,6 +73,9 @@ function Feed() {
         setLoggedIn(true);
         setLoading(false);
         setLoggedInUser(user);
+        user.photoURL
+          ? setProfilePic(user.photoURL)
+          : setProfilePic("/images/avatar.jpg");
       } else {
         window.alert("Not Logged In");
         setLoggedIn(false);
@@ -52,8 +83,11 @@ function Feed() {
       }
     });
 
-       const unsubscribe =  postService.getAllPosts().onSnapshot(onFeedChange)
-        return () => unsubscribe();
+    const unsubscribe = postService
+      .getAllPosts()
+      .orderBy("timeStamp", "desc")
+      .onSnapshot(onFeedChange);
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -82,7 +116,7 @@ function Feed() {
             <Link href="/profile">
               <div className="p-2 m-2">
                 <Image
-                  src={authUser.photoURL}
+                  src={profilePic}
                   alt="Profile-pic"
                   width={50}
                   height={50}
@@ -107,7 +141,40 @@ function Feed() {
                       <br></br>
                       {singlePost.post}
                       <br></br>
-                      <em>{singlePost.time}</em>
+                      <div className={styles.commentRow}>
+                        <em className="m-3">{singlePost.time}</em>
+                        <div
+                          className={styles.addCommentBtn}
+                          onClick={handleCommentMode}
+                        >
+                          Add comment
+                        </div>
+
+                        <div className="m-3">
+                          <AiOutlineComment />
+                          <span>{singlePost.comments?.length}</span>
+                        </div>
+                      </div>
+                      {commentMode ? (
+                        <>
+                          <form
+                            className={styles.addCommentForm}
+                            onSubmit={submitComment}
+                          >
+                            <textarea
+                              onChange={handleCommentChange}
+                              id="comment-field"
+                            />
+                            <button
+                              type="submit"
+                              className="btn btn-sm btn-outline-success"
+                            >
+                              Submit Comment
+                            </button>
+                          </form>
+                        </>
+                      ) : null}
+                      <hr></hr>
                     </div>
                   );
                 })}
