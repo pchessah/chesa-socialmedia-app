@@ -24,7 +24,7 @@ function Feed() {
   const [profilePic, setProfilePic] = useState("/images/avatar.jpg");
   const [commentMode, setCommentMode] = useState(false);
   const [comment, setComment] = useState();
-  const [commentsOnPost, setCommentsOnPost] = useState([]);
+  const [view, setCommentsOnPost] = useState([]);
 
   const onFeedChange = (feed) => {
     let tempFeedPosts = [];
@@ -78,17 +78,12 @@ function Feed() {
 
     doc
       .then((item) => {
-        let posts = item.data().comments
+        let posts = item.data().comments;
         tempCommentsPost = [...tempCommentsPost, ...posts, comment];
-        setCommentsOnPost(tempCommentsPost);
       })
       .then(() => {
-        console.log(tempCommentsPost);
-        debugger
         postService
-          .editPost(comment.postID, {
-            comments: tempCommentsPost,
-          })
+          .editPost(comment.postID, { comments: tempCommentsPost })
           .then(() => {
             alert("Comment added");
           });
@@ -138,6 +133,7 @@ function Feed() {
 
   return (
     <>
+      {" "}
       {loading ? (
         <Loading />
       ) : (
@@ -153,7 +149,8 @@ function Feed() {
                 />
                 <div className="d-flex flex-column justify-content-center align-items-center">
                   <p>
-                    Name: <em>{authUser.displayName}</em>
+                    Name:
+                    <em>{authUser.displayName}</em>
                   </p>
                 </div>
               </div>
@@ -181,8 +178,12 @@ function Feed() {
                         </div>
 
                         <div className="m-3">
-                          <AiOutlineComment />
-                          <span>{singlePost.comments?.length}</span>
+                          <Link as={`posts/${singlePost.id}`} href="posts/[id]">
+                            <div>
+                              <AiOutlineComment />
+                              <span>{singlePost.comments?.length}</span>
+                            </div>
+                          </Link>
                         </div>
                       </div>
                       {commentMode ? (
@@ -209,7 +210,7 @@ function Feed() {
                       <hr></hr>
                     </div>
                   );
-                })}
+                })}{" "}
             </div>
 
             <div className="m-2 p-2">
@@ -217,7 +218,7 @@ function Feed() {
             </div>
           </div>
         </>
-      )}
+      )}{" "}
     </>
   );
 }

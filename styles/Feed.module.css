@@ -17,7 +17,7 @@
 .addCommentBtn{
     text-decoration: underline !important;
     color: blue !important;
-    margin: 9px;
+    margin: 12px;
 }
 
 .addCommentBtn :hover{
