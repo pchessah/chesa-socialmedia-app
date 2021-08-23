@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from "next/router"
 import { userAuth } from "../libs/context/userAuthContext"
 import NotLoggedIn from '../components/notLoggedIn'
-import styles from "../styles/Profile.module.css"
 import Image from "next/image"
 import Firebase from '../libs/firebase/firebase'
 import Loading from '../components/loading'
@@ -19,7 +17,6 @@ function Profile() {
     const [loggedIn, setLoggedIn] = useState(true)
 
 
-    const router = useRouter()
 
     useEffect(() => {
         Firebase.auth().onAuthStateChanged((user) => {
@@ -27,19 +24,13 @@ function Profile() {
                 setLoadingAction(false)
                 setLoggedIn(true)
                 user.photoURL ? setProfilePic(user.photoURL) : setProfilePic("/images/avatar.jpg")
-            } else {
-                setLoggedIn(false)
-                setLoadingAction(true)
-                alert("You are not logged in!")
-                router.push("/login")
-                setLoadingAction(false)
-            }
+            } 
         });
     }, [])
 
 
 
-    const openChangeProfilePicForm = (event) => {
+    const openChangeProfilePicForm = () => {
         setEditorMode(true)
     }
 
@@ -49,7 +40,6 @@ function Profile() {
             setImageUploaded(event.target.files[0])
             setFileSelected(event.target.files[0].name)
             setLoadingAction(false)
-
         }
     }
 

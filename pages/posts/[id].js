@@ -26,7 +26,7 @@ const SinglePost = () => {
                 <br></br>
                 {currentPost?.post}
                 <hr></hr>
-                Commments:
+                Comments:
                 {currentPost?.comments.map((singleComment, index) =>{
                     return (
                     <div key={index}>

@@ -6,8 +6,6 @@ import { useState } from "react";
 import Loading from "../components/loading";
 import { userAuth } from "../libs/context/userAuthContext";
 import Firebase from "../libs/firebase/firebase";
-import Image from "next/image";
-import LogOut from "../components/logOut";
 import CreatePost from "./createPost";
 import postService from "../libs/services/posts";
 import styles from "../styles/Feed.module.css";
@@ -24,9 +22,10 @@ function Feed() {
   const [profilePic, setProfilePic] = useState("/images/avatar.jpg");
   const [commentMode, setCommentMode] = useState(false);
   const [comment, setComment] = useState();
-  const [view, setCommentsOnPost] = useState([]);
+
 
   const onFeedChange = (feed) => {
+    setLoading(true)
     let tempFeedPosts = [];
     feed.docs.forEach((singlePost) => {
       let id = singlePost.id;
@@ -45,6 +44,7 @@ function Feed() {
     });
 
     setFeedPosts(tempFeedPosts);
+    setLoading(false)
   };
 
   const getCurrentTime = () => {
@@ -76,11 +76,10 @@ function Feed() {
 
     const doc = postDocRef.get();
 
-    doc
-      .then((item) => {
-        let posts = item.data().comments;
-        tempCommentsPost = [...tempCommentsPost, ...posts, comment];
-      })
+    doc.then((item) => {
+      let posts = item.data().comments;
+      tempCommentsPost = [...tempCommentsPost, ...posts, comment];
+    })
       .then(() => {
         postService
           .editPost(comment.postID, { comments: tempCommentsPost })
@@ -102,9 +101,7 @@ function Feed() {
           ? setProfilePic(user.photoURL)
           : setProfilePic("/images/avatar.jpg");
       } else {
-        window.alert("Not Logged In");
         setLoggedIn(false);
-        router.push("/");
       }
     });
 
@@ -123,9 +120,7 @@ function Feed() {
           setLoading(false);
           setLoggedInUser(user);
         } else {
-          window.alert("Not Logged In");
           setLoggedIn(false);
-          router.push("/");
         }
       });
     };
@@ -138,32 +133,15 @@ function Feed() {
         <Loading />
       ) : (
         <>
-          <div className="p-2 d-flex flex-row row-wrap">
-            <Link href="/profile">
-              <div className="p-2 m-2">
-                <Image
-                  src={profilePic}
-                  alt="Profile-pic"
-                  width={50}
-                  height={50}
-                />
-                <div className="d-flex flex-column justify-content-center align-items-center">
-                  <p>
-                    Name:
-                    <em>{authUser.displayName}</em>
-                  </p>
-                </div>
-              </div>
-            </Link>
-
-            <div className="card m-2 p-2 d-flex flex-fill flex-wrap row justify-content-center align-items-center">
-              <div className="m-1 col-12">
+          <div className="p-2 feed-holder">
+            <div className="m-2 p-2 d-flex flex-wrap row justify-content-center align-items-center">
+              <div className="m-1 col-10">
                 <CreatePost />
               </div>
               {feedPosts &&
                 feedPosts.map((singlePost, i) => {
                   return (
-                    <div key={i} className="m-1 col-12">
+                    <div key={i} className="m-1 col-10">
                       Poster: {singlePost.user}
                       <br></br>
                       {singlePost.post}
@@ -211,10 +189,6 @@ function Feed() {
                     </div>
                   );
                 })}{" "}
-            </div>
-
-            <div className="m-2 p-2">
-              <LogOut />
             </div>
           </div>
         </>

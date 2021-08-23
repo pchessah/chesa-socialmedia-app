@@ -51,8 +51,7 @@ function Signup() {
                 let userName =  `${firstName} ${secondName}`
 
                 userName.charAt(0).toUpperCase() + userName.slice(1)
-                user.updateProfile({
-                  
+                user.updateProfile({                  
                     displayName: userName
                 })
             }).then(()=>{

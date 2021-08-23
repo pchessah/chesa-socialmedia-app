@@ -11,7 +11,7 @@ import Loading from '../components/loading';
 
 function HomePage() {
     const [loggedIn, setLoggedIn] = useState()
-    const[loading, setLoading] =useState(true)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         Firebase.auth().onAuthStateChanged((user) => {
@@ -25,9 +25,11 @@ function HomePage() {
         })
     }, [])
 
+
+
     return (
         <>
-             {loading? <Loading/>: loggedIn ?  <Feed /> : <>
+            {loading ? <Loading /> : loggedIn ? <Feed /> : <>
                 <div className={styles.homeContainer}>
                     <div className={styles.gif}>
                         <Image
@@ -37,7 +39,11 @@ function HomePage() {
                             height={500}
                         />
                     </div>
-                    <Signup />
+                    <div>
+                        <Signup />
+                    </div>
+
+
                 </div>
             </>}
 

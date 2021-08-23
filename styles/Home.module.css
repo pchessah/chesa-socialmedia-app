@@ -1,26 +1,32 @@
-.homeContainer{
+.homeContainer {
   padding: 3%;
   display: flex;
-  flex-wrap: wrap-reverse !important;
+  flex-direction: row;
+  flex-wrap: wrap !important;
   justify-content: center;
   min-width: 50%;
 }
 
-.gif{
+.gif {
   flex: 1;
   width: 100%;
-
 }
 
-.signUpForm{
+@media only screen and (max-width: 600px) {
+  .gif {
+    display: none !important;
+  }
+}
+
+.signUpForm {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.signUpForm form{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+.signUpForm form {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
   margin: 10px 5px;
@@ -28,15 +34,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
 }
 
-.signUpForm form:hover{
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.signUpForm form:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-
-.signUpFormInput{
+.signUpFormInput {
   width: 100%;
   background-color: aliceblue;
   border-radius: 5px;
@@ -46,34 +51,32 @@
   flex: 1;
 }
 
-.inputRow{
+.inputRow {
   width: 100%;
   margin: 5px 0px;
 }
 
-.signUpFormBtn{
+.signUpFormBtn {
   color: white;
   width: 100%;
   margin: 5px 0px;
 }
 
-.bottomLinks{
+.bottomLinks {
   display: flex;
   justify-self: flex-end;
 }
 
-.bottomLinks a{
+.bottomLinks a {
   color: black;
   font-size: smaller;
-  float:right;
-  
+  float: right;
 }
 
-.addClass{
+.addClass {
   width: 100%;
   padding: 5px;
   flex: 1;
-  border-radius:5px;
+  border-radius: 5px;
   background-color: aliceblue;
 }
-

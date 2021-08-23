@@ -36,7 +36,7 @@ function Navigationbar() {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto p-2" navbar>
                         <NavItem className="m-2">
-                            <Link href="/"><a className={styles.navLink}>Home</a></Link>
+                            <Link href="/"><a className={styles.navLink}>Feed</a></Link>
                         </NavItem>
                         {!authUser ? <> <NavItem className="m-2 ">
                             <Link href="/login"><a className={styles.navLink}>Log In</a></Link>

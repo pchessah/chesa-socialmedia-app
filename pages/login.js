@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import { GoSignIn } from 'react-icons/go';
@@ -10,12 +10,12 @@ function Login() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
     const router = useRouter()
-    const { signInWithEmailAndPassword, authUser } = userAuth()
+    const { signInWithEmailAndPassword } = userAuth()
 
     const onLogIn = (event) => {
         event.preventDefault()
         setError(null)
-        signInWithEmailAndPassword(email, password).then((authUser) => {
+        signInWithEmailAndPassword(email, password).then(() => {
             router.push("/profile")
         }).catch((error) => {
             setError(error.message)
