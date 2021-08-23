@@ -23,7 +23,8 @@ function Feed() {
   const [loggedInUser, setLoggedInUser] = useState(authUser);
   const [profilePic, setProfilePic] = useState("/images/avatar.jpg");
   const [commentMode, setCommentMode] = useState(false);
-  const [comment, setComment] = useState()
+  const [comment, setComment] = useState();
+  const [commentsOnPost, setCommentsOnPost] = useState([]);
 
   const onFeedChange = (feed) => {
     let tempFeedPosts = [];
@@ -46,24 +47,53 @@ function Feed() {
     setFeedPosts(tempFeedPosts);
   };
 
-  const handleCommentChange = (event) => {
+  const getCurrentTime = () => {
+    let currentTime = new Date().toLocaleString();
+    return currentTime;
+  };
+
+  const handleCommentChange = (id) => {
     const commentContent = event.target.value;
     const tempComment = {
       commenter: loggedInUser.displayName,
       comment: commentContent,
       time: getCurrentTime(),
-      timeStamp: new Date().getTime()
-    }
-
-    setComment(tempComment)
+      timeStamp: new Date().getTime(),
+      postID: id,
+    };
+    setComment(tempComment);
   };
-
 
   const handleCommentMode = () => {
     setCommentMode(!commentMode);
   };
 
-  const submitComment = () => {
+  const submitComment = (e) => {
+    e.preventDefault();
+    let tempCommentsPost = [];
+
+    let postDocRef = postService.dbRef.doc(comment.postID);
+
+    const doc = postDocRef.get();
+
+    doc
+      .then((item) => {
+        let posts = item.data().comments
+        tempCommentsPost = [...tempCommentsPost, ...posts, comment];
+        setCommentsOnPost(tempCommentsPost);
+      })
+      .then(() => {
+        console.log(tempCommentsPost);
+        debugger
+        postService
+          .editPost(comment.postID, {
+            comments: tempCommentsPost,
+          })
+          .then(() => {
+            alert("Comment added");
+          });
+      });
+
     setCommentMode(!commentMode);
   };
 
@@ -112,7 +142,7 @@ function Feed() {
         <Loading />
       ) : (
         <>
-          <div className="p-2 d-flex flex-row row-wrap justify-content-between">
+          <div className="p-2 d-flex flex-row row-wrap">
             <Link href="/profile">
               <div className="p-2 m-2">
                 <Image
@@ -162,7 +192,9 @@ function Feed() {
                             onSubmit={submitComment}
                           >
                             <textarea
-                              onChange={handleCommentChange}
+                              onChange={() =>
+                                handleCommentChange(singlePost.id)
+                              }
                               id="comment-field"
                             />
                             <button
